@@ -1,0 +1,12 @@
+version: '3'
+services:
+  jira-motion-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sccity/jira-motion-sync:prod
+    container_name: jira-motion-sync
+    environment:
+      - TZ=America/Denver
+    restart: unless-stopped
+    user: "1435:1435" 

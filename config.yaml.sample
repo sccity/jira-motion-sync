@@ -1,0 +1,10 @@
+jira:
+  url: ""
+  api: ""
+  user: ""
+  api_key: ""
+
+motion:
+  url: ""
+  api_key: ""
+  workspace_id: ""
