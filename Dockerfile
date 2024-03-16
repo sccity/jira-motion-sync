@@ -19,6 +19,4 @@ COPY ./requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 RUN chown -R sccity:sccity /app && chmod -R 775 /app
-COPY crontab /etc/cron.d/crontab
-USER sccity
-CMD ["crond", "-f"]
+CMD ["python", "app.py"]

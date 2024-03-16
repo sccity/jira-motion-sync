@@ -376,4 +376,13 @@ if __name__ == "__main__":
     motion_api_key = config["motion"]["api_key"]
     motion_workspace = config["motion"]["workspace_id"]
 
-    main()
+    while True:
+        try:
+            main()
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            print("Restarting in 15 seconds...")
+            time.sleep(15)
+
+        print("Sleeping for 15 minutes before the next execution...")
+        time.sleep(15 * 60)
