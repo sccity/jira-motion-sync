@@ -19,16 +19,6 @@ from datetime import datetime, timedelta
 from ratelimit import limits, sleep_and_retry
 from variables import assignees
 
-with open("config.yaml", "r") as config_file:
-    config = yaml.safe_load(config_file)
-
-jira_url = config["jira"]["url"]
-jira_api_url = config["jira"]["api"]
-jira_auth = (config["jira"]["user"], config["jira"]["api_key"])
-motion_api_url = config["motion"]["url"]
-motion_api_key = config["motion"]["api_key"]
-motion_workspace = config["motion"]["workspace_id"]
-
 
 def check_running():
     lock_file = "/tmp/jiraMotionSync.lock"
@@ -265,7 +255,6 @@ class IssueFetcher:
             "description": link,
             "priority": f"{priority_name}",
             "labels": ["JIRA"],
-            "subTasks": [],
             "assigneeId": motion_user_id,
         }
 
@@ -340,7 +329,7 @@ def main():
     for assignee_id, assignee_name in assignees.items():
         jql_query = (
             'status not in (Done, "On Hold", Complete, Closed, Resolved, Backlog) '
-            "AND type != Epic and labels not in (NOMOTION) "
+            "AND type != Epic "
             f"AND assignee = {assignee_id} "
             "order by updated asc"
         )
@@ -353,6 +342,7 @@ def main():
     if all_issues:
         for issue in all_issues:
             response = issue_fetcher.create_task_in_motion(issue)
+            print(response)
 
     time.sleep(60)
 
@@ -376,4 +366,14 @@ def main():
 
 
 if __name__ == "__main__":
+    with open("config.yaml", "r") as config_file:
+        config = yaml.safe_load(config_file)
+
+    jira_url = config["jira"]["url"]
+    jira_api_url = config["jira"]["api"]
+    jira_auth = (config["jira"]["user"], config["jira"]["api_key"])
+    motion_api_url = config["motion"]["url"]
+    motion_api_key = config["motion"]["api_key"]
+    motion_workspace = config["motion"]["workspace_id"]
+
     main()
