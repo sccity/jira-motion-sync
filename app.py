@@ -487,7 +487,7 @@ def main():
 
         for assignee_id, assignee_name in assignees.items():
             jql_query = (
-                'status not in (Done, "On Hold", Complete, Closed, Resolved, Backlog) '
+                'status not in (Done, "On Hold", Complete, Closed, Resolved, Backlog, Withdrawn, Denied, ToDo) '
                 "AND type != Epic "
                 f"AND assignee = {assignee_id} "
                 "order by updated asc"
