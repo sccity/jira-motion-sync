@@ -1,5 +1,5 @@
 [Unit]
-Description=Spillman API
+Description=Jira Motion Sync
 After=syslog.target network.target
 
 [Service]
