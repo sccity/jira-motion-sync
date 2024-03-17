@@ -14,7 +14,7 @@ elif [[ $1 = "stop" ]]; then
 elif [[ $1 = "restart" ]]; then
 	echo "Restarting Jira Motion Sync..."
   $docker_compose down
-  $docker_compose start
+  $docker_compose up -d
 elif [[ $1 = "down" ]]; then
 	echo "Tearing Down Jira Motion Sync..."
 	$docker_compose down
@@ -27,7 +27,7 @@ elif [[ $1 = "update" ]]; then
 	$docker_compose down --remove-orphans
 	git pull origin master
 	$docker_compose build --no-cache
-	$docker_compose start
+	$docker_compose up -d
 elif [[ $1 = "shell" ]]; then
 	echo "Entering Jira Motion Sync Shell..."
 	docker exec -it jira-motion-sync sh
