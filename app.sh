@@ -25,7 +25,9 @@ elif [[ $1 = "rebuild" ]]; then
 elif [[ $1 = "update" ]]; then
 	echo "Updating Jira Motion Sync..."
 	$docker_compose down --remove-orphans
-	git pull origin prod
+	git pull origin master
+	$docker_compose build --no-cache
+	$docker_compose start
 elif [[ $1 = "shell" ]]; then
 	echo "Entering Jira Motion Sync Shell..."
 	docker exec -it jira-motion-sync sh
