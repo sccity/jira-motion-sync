@@ -8,3 +8,5 @@ motion:
   url: ""
   api_key: ""
   workspace_id: ""
+  
+jira-log-api:
