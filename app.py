@@ -353,12 +353,15 @@ class IssueFetcher:
             one_day = timedelta(days=1)
             current_time_plus_1_day = current_time + one_day
             current_time_iso8601 = current_time_plus_1_day.isoformat()
+            duedate_str = issue["fields"]["duedate"]
+            duedate_datetime = datetime.strptime(duedate_str, "%Y-%m-%d")
+            duedate_iso8601 = duedate_datetime.isoformat()
 
             link = f"{jira_url}/browse/{issue['key']}"
             motion_task_name = f"{issue['fields']['summary']} ({issue['key']})"
 
             payload = {
-                "dueDate": current_time_iso8601,
+                "dueDate": duedate_iso8601,
                 "duration": 60,
                 "status": "In Progress",
                 "autoScheduled": {
@@ -487,7 +490,7 @@ def main():
 
         for assignee_id, assignee_name in assignees.items():
             jql_query = (
-                'status not in (Done, "On Hold", Complete, Closed, Resolved, Backlog, Withdrawn, Denied, "To Do") '
+                'status not in (Done, "On Hold", Complete, Closed, Resolved, Backlog, Withdrawn, Denied) '
                 "AND type != Epic "
                 f"AND assignee = {assignee_id} "
                 "order by updated asc"
