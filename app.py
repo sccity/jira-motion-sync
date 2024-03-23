@@ -363,7 +363,7 @@ class IssueFetcher:
             payload = {
                 "dueDate": duedate_iso8601,
                 "duration": 60,
-                "status": "In Progress",
+                "status": "ToDo",
                 "autoScheduled": {
                     "startDate": current_time_iso8601,
                     "deadlineType": "NONE",
