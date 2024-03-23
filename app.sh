@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker_compose="docker-compose -f docker-compose.yaml"
+docker_compose="docker-compose -f docker-compose.yml"
 
 [ -f config.yaml ] || { echo "Missing config.yaml file. Exiting."; exit 1; }
 [ -f variables.py ] || { echo "Missing variables.py file. Exiting."; exit 1; }

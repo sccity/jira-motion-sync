@@ -1,0 +1,15 @@
+version: '3'
+services:
+  jira-motion-sync:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sccity/jira-motion-sync:prod
+    container_name: jira-motion-sync
+    environment:
+      - TZ=America/Denver
+    volumes:
+      - "/etc/sccity/jira-motion-sync.yaml:/app/settings.yaml:ro"
+      - "/etc/sccity/jira-motion-sync-variables.py:/app/variables.py:ro"
+    restart: unless-stopped
+    user: "1435:1435" 
