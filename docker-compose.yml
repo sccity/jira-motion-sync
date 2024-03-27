@@ -10,3 +10,8 @@ services:
       - TZ=America/Denver
     restart: unless-stopped
     user: "1435:1435" 
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M

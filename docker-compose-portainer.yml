@@ -13,3 +13,8 @@ services:
       - "/etc/sccity/jira-motion-sync-variables.py:/app/variables.py:ro"
     restart: unless-stopped
     user: "1435:1435" 
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 256M
