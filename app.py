@@ -354,7 +354,10 @@ class IssueFetcher:
             current_time_plus_1_day = current_time + one_day
             current_time_iso8601 = current_time_plus_1_day.isoformat()
             duedate_str = issue["fields"]["duedate"]
-            duedate_datetime = datetime.strptime(duedate_str, "%Y-%m-%d")
+            if duedate_str is None:
+                duedate_datetime = datetime.now() + timedelta(days=1)
+            else:
+                duedate_datetime = datetime.strptime(duedate_str, "%Y-%m-%d")
             duedate_iso8601 = duedate_datetime.isoformat()
 
             link = f"{jira_url}/browse/{issue['key']}"
